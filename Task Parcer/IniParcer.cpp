@@ -19,7 +19,7 @@ IniParcer::IniParcer(std::string& nameFile)
 				heading = str.substr(1, str.find(']') - 1);
 				cnt2++;
 			}
-			else if (str[0] != ';' && str[0] != '#') {
+			else if (str[0] != ';' && str[0] != '#' && str[0] != ' ') {
 				key = str.substr(0, str.find('='));
 				std::string value1;
 				value1 = str.substr(str.find('=') + 1, str.find(';') - str.find('=') - 1);
@@ -146,7 +146,7 @@ void IniParcer::creatingFile(std::string& faileName)
 			out << '[' << it->first << ']' << '\n';
 
 			for (auto it2 = it->second.begin(); it2 != it->second.end();it2++) {
-				if (it2->first != "")
+				if (it2->first != "" && it2->first != " ")
 				out << it2->first << " = " << it2->second << '\n';	
 			}
 		}
