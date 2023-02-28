@@ -7,6 +7,7 @@
 class IParcer
 {
 public:	
+
 	virtual void keySearchTitle(std::string& key)=0;
 	virtual void titleSearch(std::string& title)=0;
 	virtual void keySearch(std::string& val)=0;

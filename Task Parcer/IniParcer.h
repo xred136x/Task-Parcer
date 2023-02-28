@@ -3,7 +3,7 @@
 class IniParcer : public IParcer
 {
 public:
-	IniParcer();
+	IniParcer(std::string& nameFile);
 	void keySearchTitle(std::string& key) override;
 	void titleSearch(std::string& title) override;
 	void keySearch(std::string& key) override;

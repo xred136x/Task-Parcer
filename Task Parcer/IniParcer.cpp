@@ -1,32 +1,33 @@
 #include "IniParcer.h"
 
-IniParcer::IniParcer()
+IniParcer::IniParcer(std::string& nameFile)
 {
-	
 	std::ifstream in;
-	in.open("File.ini");
+	in.open(nameFile);
 	if (in.is_open()) {
 		int cnt = 0;
 		int cnt2 = 0;
-		std::string str, str2, key, value;
+		std::string str, heading, key, value;
 		std::map<std::string, std::map<std::string, std::string>> myMap;
 		while (!in.eof()) {
 			std::getline(in, str);
 			if (str[0] == '[') {
 				if (cnt == 0 && cnt2 != 0) {
-					myMap[str2];
+					myMap[heading];
 					cnt2 = 0;
 				}
-				str2 = str.substr(1, str.find(']') - 1);
+				heading = str.substr(1, str.find(']') - 1);
 				cnt2++;
 			}
-			else if (str[0] != ';' && str[0] != '[' && str[0] != '#') {
+			else if (str[0] != ';' && str[0] != '#') {
 				key = str.substr(0, str.find('='));
-				value = str.substr(str.find('=') + 1, str.find(';') - str.find('=') - 1);
+				std::string value1;
+				value1 = str.substr(str.find('=') + 1, str.find(';') - str.find('=') - 1);
+				value = value1.substr(0, value1.find('#'));
 				cnt++;
 			}
 			if (cnt > 0) {
-				myMap[str2][key] = value;
+				myMap[heading][key] = value;
 				cnt = 0;
 			}
 		}
@@ -142,10 +143,11 @@ void IniParcer::creatingFile(std::string& faileName)
 	out.open(faileName,std:: ios::out);
 	if (out.is_open()) {
 		for (auto it = _myMap.begin(); it != _myMap.end();it++) {
-			out << it->first << ' ' << '\n';
+			out << '[' << it->first << ']' << '\n';
 
 			for (auto it2 = it->second.begin(); it2 != it->second.end();it2++) {
-				out << it2->first << " " << it2->second << '\n';	
+				if (it2->first != "")
+				out << it2->first << " = " << it2->second << '\n';	
 			}
 		}
 	}
