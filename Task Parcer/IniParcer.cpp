@@ -5,30 +5,30 @@ IniParcer::IniParcer(std::string& nameFile)
 	std::ifstream in;
 	in.open(nameFile);
 	if (in.is_open()) {
-		int cnt = 0;
-		int cnt2 = 0;
+		int trackerKeyValue = 0;
+		int trackerKey = 0;
 		std::string str, heading, key, value;
 		std::map<std::string, std::map<std::string, std::string>> myMap;
 		while (!in.eof()) {
 			std::getline(in, str);
 			if (str[0] == '[') {
-				if (cnt == 0 && cnt2 != 0) {
+				if (trackerKeyValue == 0 && trackerKey != 0) {
 					myMap[heading];
-					cnt2 = 0;
+					trackerKey = 0;
 				}
 				heading = str.substr(1, str.find(']') - 1);
-				cnt2++;
+				trackerKey++;
 			}
-			else if (str[0] != ';' && str[0] != '#' && str[0] != ' ') {
+			else if (str[0] != ';' && str[0] != '#' && str[0] != ' ' && str != "") {
 				key = str.substr(0, str.find('='));
 				std::string value1;
 				value1 = str.substr(str.find('=') + 1, str.find(';') - str.find('=') - 1);
 				value = value1.substr(0, value1.find('#'));
-				cnt++;
+				trackerKeyValue++;
 			}
-			if (cnt > 0) {
+			if (trackerKeyValue > 0) {
 				myMap[heading][key] = value;
-				cnt = 0;
+				trackerKeyValue = 0;
 			}
 		}
 		_myMap = myMap;
