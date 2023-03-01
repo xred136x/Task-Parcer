@@ -40,7 +40,7 @@ IniParcer::IniParcer(std::string& nameFile)
 	in.close();
 }
 
-void IniParcer::keySearchTitle(std::string& key)
+void IniParcer::keySearchTitle(const std::string& key)
 {
 	int cnt = 0;
 	for (auto it = _myMap.begin(); it != _myMap.end(); it++) {
@@ -55,7 +55,7 @@ void IniParcer::keySearchTitle(std::string& key)
 		std::cout << "Заголовка с таким ключом нет\n";
 }
 
-void IniParcer::titleSearch(std::string& title)
+void IniParcer::titleSearch(const std::string& title)
 {
 	int cnt = 0;
 	for (auto it = _myMap.begin(); it != _myMap.end(); it++) {
@@ -69,7 +69,7 @@ void IniParcer::titleSearch(std::string& title)
 		std::cout << "Такого заголовка нет\n";
 }
 		
-void IniParcer::keySearch(std::string& key)
+void IniParcer::keySearch(const std::string& key)
 {
 	int cnt = 0;
 	for (auto it = _myMap.begin(); it != _myMap.end(); it++) {
@@ -86,7 +86,7 @@ void IniParcer::keySearch(std::string& key)
 		std::cout << "Такой ключ существует" << '\n';
 }
 
-void IniParcer::valueSearch(std::string& value)
+void IniParcer::valueSearch(const std::string& value)
 {
 	int cnt = 0;
 	for (auto it = _myMap.begin(); it != _myMap.end(); it++) {
@@ -103,7 +103,7 @@ void IniParcer::valueSearch(std::string& value)
 		std::cout << "Значение отсутствует в файле\n";
 }
 
-void IniParcer::valueSearchKeyTitle(std::string& title, std::string& key)
+void IniParcer::valueSearchKeyTitle(const std::string& title, std::string& key)
 {
 	int cnt2 = 0;
 	int cnt = 0;
@@ -123,7 +123,7 @@ void IniParcer::valueSearchKeyTitle(std::string& title, std::string& key)
 		std::cout << "Нет такого заголовка и ключа " << '\n';
 }
 
-void IniParcer::titleAddKeyVal(std::string& title)
+void IniParcer::titleAddKeyVal(const std::string& title)
 {
 	std::cout << "Введите ключ и значение которые хотите присвоить\n";
 	std::string a, b;
@@ -137,7 +137,7 @@ void IniParcer::titleAddKeyVal(std::string& title)
 	}
 }
 
-void IniParcer::creatingFile(std::string& faileName)
+void IniParcer::creatingFile(const std::string& faileName)
 {
 	std::ofstream out;
 	out.open(faileName,std:: ios::out);
